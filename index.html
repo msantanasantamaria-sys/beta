@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>APEX // ELECTRONIC NIGHT</title>
+
+<script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+
+<style>
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#000;
+}
+
+#hud{
+  position:fixed;
+  z-index:50;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  color:white;
+  font-family:Arial,sans-serif;
+  font-size:11px;
+  letter-spacing:5px;
+  text-align:center;
+  opacity:.38;
+  pointer-events:none;
+}
+</style>
+</head>
+
+
+<body>
+
+<div id="hud">
+  APEX // ELECTRONIC NIGHT<br>
+  <span style="font-size:8px;letter-spacing:3px">
+  ENTER THE MOMENT
+  </span>
+</div>
+
+
+<a-scene
+
+  background="color:#010106"
+
+  fog="
+    type:exponential;
+    color:#020207;
+    density:0.005
+  "
+
+  renderer="
+    colorManagement:true;
+    physicallyCorrectLights:true;
+    antialias:true
+  "
+
+  cursor="rayOrigin:mouse"
+>
+
+
+<!-- ====================================================== -->
+<!-- CÁMARA -->
+<!-- ====================================================== -->
+
+<a-entity
+  position="0 2.3 54"
+  movement-controls="speed:7"
+>
+
+  <a-camera
+    wasd-controls="acceleration:45"
+    look-controls="pointerLockEnabled:true"
+  ></a-camera>
+
+</a-entity>
+
+
+
+<!-- ====================================================== -->
+<!-- ATMÓSFERA -->
+<!-- ====================================================== -->
+
+<a-entity
+  light="
+    type:ambient;
+    color:#09000d;
+    intensity:.16
+  "
+></a-entity>
+
+<a-entity
+  light="
+    type:directional;
+    color:#22000d;
+    intensity:.25
+  "
+  position="0 30 30"
+></a-entity>
+
+
+
+<!-- ====================================================== -->
+<!-- PISO PRINCIPAL -->
+<!-- ====================================================== -->
+
+<a-plane
+
+  rotation="-90 0 0"
+
+  width="180"
+  height="190"
+
+  position="0 0 0"
+
+  material="
+    color:#030308;
+    metalness:1;
+    roughness:.06
+  "
+
+></a-plane>
+
+
+<!-- REFLEJO DEL ESCENARIO -->
+
+<a-plane
+
+  rotation="-90 0 0"
+
+  position="0 .025 -30"
+
+  width="110"
+  height="100"
+
+  material="
+    color:#170006;
+    metalness:1;
+    roughness:.08;
+    transparent:true;
+    opacity:.58
+  "
+
+></a-plane>
+
+
+
+<!-- ====================================================== -->
+<!-- ESTADIO -->
+<!-- ====================================================== -->
+
+<a-box
+  position="-48 12 0"
+  width="8"
+  height="24"
+  depth="115"
+  material="color:#07070c;metalness:.9"
+></a-box>
+
+<a-box
+  position="48 12 0"
+  width="8"
+  height="24"
+  depth="115"
+  material="color:#07070c;metalness:.9"
+></a-box>
+
+
+<!-- GRADAS -->
+
+<a-box
+  position="-37 9 5"
+  width="13"
+  height="18"
+  depth="95"
+  material="color:#0b0a10"
+></a-box>
+
+<a-box
+  position="37 9 5"
+  width="13"
+  height="18"
+  depth="95"
+  material="color:#0b0a10"
+></a-box>
+
+
+<!-- ====================================================== -->
+<!-- TECHO MONUMENTAL -->
+<!-- ====================================================== -->
+
+<a-torus
+  position="0 35 0"
+  rotation="90 0 0"
+  radius="55"
+  radius-tubular=".8"
+  material="
+    color:#0d0008;
+    metalness:.9
+  "
+></a-torus>
+
+<a-torus
+  position="0 40 -5"
+  rotation="90 0 0"
+  radius="45"
+  radius-tubular=".45"
+  material="color:#26000f"
+></a-torus>
+
+<a-torus
+  position="0 44 -10"
+  rotation="90 0 0"
+  radius="34"
+  radius-tubular=".25"
+  material="color:#410018"
+></a-torus>
+
+
+
+<!-- ====================================================== -->
+<!-- ESCENARIO BASE -->
+<!-- ====================================================== -->
+
+<a-box
+  position="0 2 -38"
+  width="82"
+  height="4"
+  depth="17"
+  material="
+    color:#06060b;
+    metalness:1;
+    roughness:.12
+  "
+></a-box>
+
+
+<!-- ====================================================== -->
+<!-- TORRES GIGANTES -->
+<!-- ====================================================== -->
+
+<a-box
+  position="-35 16 -38"
+  width="8"
+  height="32"
+  depth="9"
+  material="color:#08080d;metalness:1"
+></a-box>
+
+<a-box
+  position="35 16 -38"
+  width="8"
+  height="32"
+  depth="9"
+  material="color:#08080d;metalness:1"
+></a-box>
+
+
+<!-- ====================================================== -->
+<!-- PANTALLA CENTRAL -->
+<!-- ====================================================== -->
+
+<a-plane
+
+  id="mainScreen"
+
+  position="0 16 -48"
+
+  width="48"
+  height="24"
+
+  material="
+    color:#ff001f;
+    emissive:#ff001f;
+    emissiveIntensity:4
+  "
+
+></a-plane>
+
+
+<!-- PANTALLAS LATERALES -->
+
+<a-plane
+  position="-26 14 -46"
+  rotation="0 10 0"
+  width="15"
+  height="20"
+  material="
+    color:#b00022;
+    emissive:#b00022;
+    emissiveIntensity:3
+  "
+></a-plane>
+
+<a-plane
+  position="26 14 -46"
+  rotation="0 -10 0"
+  width="15"
+  height="20"
+  material="
+    color:#b00022;
+    emissive:#b00022;
+    emissiveIntensity:3
+  "
+></a-plane>
+
+
+
+<!-- ====================================================== -->
+<!-- MARCO LUMINOSO -->
+<!-- ====================================================== -->
+
+<a-box
+  position="0 28 -49"
+  width="56"
+  height="1"
+  depth="1"
+  material="
+    color:#ff003c;
+    emissive:#ff003c;
+    emissiveIntensity:8
+  "
+></a-box>
+
+<a-box
+  position="0 4 -49"
+  width="56"
+  height="1"
+  depth="1"
+  material="
+    color:#ff003c;
+    emissive:#ff003c;
+    emissiveIntensity:8
+  "
+></a-box>
+
+<a-box
+  position="-28 16 -49"
+  width="1"
+  height="24"
+  depth="1"
+  material="
+    color:#ff003c;
+    emissive:#ff003c;
+    emissiveIntensity:8
+  "
+></a-box>
+
+<a-box
+  position="28 16 -49"
+  width="1"
+  height="24"
+  depth="1"
+  material="
+    color:#ff003c;
+    emissive:#ff003c;
+    emissiveIntensity:8
+  "
+></a-box>
+
+
+
+<!-- ====================================================== -->
+<!-- ANILLOS FLOTANTES -->
+<!-- ====================================================== -->
+
+<a-torus
+  position="0 17 -51"
+  rotation="90 0 0"
+  radius="18"
+  radius-tubular=".55"
+  material="
+    color:#ff003c;
+    emissive:#ff003c;
+    emissiveIntensity:6
+  "
+  animation="
+    property:rotation;
+    to:90 360 360;
+    dur:15000;
+    loop:true;
+    easing:linear
+  "
+></a-torus>
+
+<a-torus
+  position="0 17 -52"
+  rotation="90 0 0"
+  radius="12"
+  radius-tubular=".35"
+  material="
+    color:#8a00ff;
+    emissive:#8a00ff;
+    emissiveIntensity:7
+  "
+  animation="
+    property:rotation;
+    to:-90 -360 -360;
+    dur:11000;
+    loop:true;
+    easing:linear
+  "
+></a-torus>
+
+
+
+<!-- ====================================================== -->
+<!-- ELEMENTOS DINÁMICOS -->
+<!-- ====================================================== -->
+
+<a-entity id="ledWall"></a-entity>
+<a-entity id="movingBeams"></a-entity>
+<a-entity id="lasers"></a-entity>
+<a-entity id="crowd"></a-entity>
+<a-entity id="bracelets"></a-entity>
+<a-entity id="rain"></a-entity>
+<a-entity id="splashes"></a-entity>
+<a-entity id="smoke"></a-entity>
+<a-entity id="fire"></a-entity>
+<a-entity id="fireworks"></a-entity>
+<a-entity id="skyBeams"></a-entity>
+<a-entity id="flashes"></a-entity>
+
+
+
+<script>
+
+const ledWall = document.querySelector("#ledWall");
+const movingBeams = document.querySelector("#movingBeams");
+const lasers = document.querySelector("#lasers");
+const crowd = document.querySelector("#crowd");
+const bracelets = document.querySelector("#bracelets");
+const rain = document.querySelector("#rain");
+const splashes = document.querySelector("#splashes");
+const smoke = document.querySelector("#smoke");
+const fire = document.querySelector("#fire");
+const fireworks = document.querySelector("#fireworks");
+const skyBeams = document.querySelector("#skyBeams");
+const flashes = document.querySelector("#flashes");
+
+
+const colors = [
+
+  "#ff003c",
+  "#ff0055",
+  "#ff0088",
+  "#8b00ff",
+  "#4200ff",
+  "#00d9ff",
+  "#00fff0",
+  "#ffffff"
+
+];
+
+
+
+/* =========================================================
+   LED WALL
+========================================================= */
+
+for(let x=-26;x<=26;x+=1.8){
+
+  for(let y=7;y<=26;y+=2.2){
+
+    const led=document.createElement("a-box");
+
+    led.setAttribute(
+      "position",
+      `${x} ${y} -49.5`
+    );
+
+    led.setAttribute("width",".55");
+    led.setAttribute("height",".65");
+    led.setAttribute("depth",".25");
+
+    const color=
+      colors[
+        Math.floor(
+          Math.random()*colors.length
+        )
+      ];
+
+    led.setAttribute(
+      "material",
+      `
+      color:${color};
+      emissive:${color};
+      emissiveIntensity:5
+      `
+    );
+
+    led.setAttribute(
+      "animation",
+      `
+      property:material.emissiveIntensity;
+      from:1;
+      to:${5+Math.random()*7};
+      dur:${180+Math.random()*900};
+      dir:alternate;
+      loop:true
+      `
+    );
+
+    ledWall.appendChild(led);
+
+  }
+
+}
+
+
+
+/* =========================================================
+   BEAMS GIGANTES
+========================================================= */
+
+for(let i=0;i<30;i++){
+
+  const beam=document.createElement("a-cylinder");
+
+  const color=
+    colors[i%colors.length];
+
+  beam.setAttribute("radius",".11");
+  beam.setAttribute("height","65");
+
+  beam.setAttribute(
+    "position",
+    `${-42+i*2.9} ${10+Math.random()*8} -15`
+  );
+
+  beam.setAttribute(
+    "material",
+    `
+    color:${color};
+    emissive:${color};
+    emissiveIntensity:8;
+    transparent:true;
+    opacity:.17
+    `
+  );
+
+  beam.setAttribute(
+    "animation",
+    `
+    property:rotation;
+    to:${Math.random()*70-35}
+       ${Math.random()*100-50}
+       ${Math.random()*50-25};
+    dur:${900+Math.random()*2200};
+    dir:alternate;
+    loop:true
+    `
+  );
+
+  movingBeams.appendChild(beam);
+
+}
+
+
+
+/* =========================================================
+   LÁSERES
+========================================================= */
+
+for(let i=0;i<24;i++){
+
+  const laser=document.createElement("a-cylinder");
+
+  const color=colors[i%colors.length];
+
+  laser.setAttribute("radius",".018");
+  laser.setAttribute("height","90");
+
+  laser.setAttribute(
+    "position",
+    `${-42+i*3.6} 18 -4`
+  );
+
+  laser.setAttribute(
+    "material",
+    `
+    color:${color};
+    emissive:${color};
+    emissiveIntensity:12;
+    transparent:true;
+    opacity:.45
+    `
+  );
+
+  laser.setAttribute(
+    "animation",
+    `
+    property:rotation;
+    to:${Math.random()*130-65}
+       ${Math.random()*140-70}
+       0;
+    dur:${1000+Math.random()*1800};
+    dir:alternate;
+    loop:true
+    `
+  );
+
+  lasers.appendChild(laser);
+
+}
+
+
+
+/* =========================================================
+   LUCES DEL CIELO
+========================================================= */
+
+for(let i=0;i<16;i++){
+
+  const beam=document.createElement("a-cylinder");
+
+  const color=colors[i%colors.length];
+
+  beam.setAttribute("radius",".06");
+  beam.setAttribute("height","100");
+
+  beam.setAttribute(
+    "position",
+    `${-40+i*5.3} 22 -5`
+  );
+
+  beam.setAttribute(
+    "material",
+    `
+    color:${color};
+    emissive:${color};
+    emissiveIntensity:8;
+    transparent:true;
+    opacity:.14
+    `
+  );
+
+  beam.setAttribute(
+    "animation",
+    `
+    property:rotation;
+    to:${Math.random()*70-35}
+       ${Math.random()*120-60}
+       0;
+    dur:${1400+Math.random()*2500};
+    dir:alternate;
+    loop:true
+    `
+  );
+
+  skyBeams.appendChild(beam);
+
+}
+
+
+
+/* =========================================================
+   PÚBLICO
+========================================================= */
+
+for(let i=0;i<420;i++){
+
+  const x=-39+Math.random()*78;
+  const z=-1+Math.random()*51;
+
+  const person=document.createElement("a-cylinder");
+
+  person.setAttribute("radius",".18");
+  person.setAttribute("height","1.7");
+
+  person.setAttribute(
+    "position",
+    `${x} 1 ${z}`
+  );
+
+  person.setAttribute(
+    "material",
+    "color:#08080d;roughness:.9"
+  );
+
+  person.setAttribute(
+    "animation",
+    `
+    property:position;
+    to:${x}
+       ${1.1+Math.random()*.8}
+       ${z};
+    dur:${300+Math.random()*700};
+    dir:alternate;
+    loop:true
+    `
+  );
+
+  crowd.appendChild(person);
+
+}
+
+
+
+/* =========================================================
+   PULSERAS DEL PÚBLICO
+========================================================= */
+
+for(let i=0;i<250;i++){
+
+  const bracelet=document.createElement("a-sphere");
+
+  const x=-39+Math.random()*78;
+  const z=-1+Math.random()*51;
+
+  const color=
+    colors[
+      Math.floor(Math.random()*colors.length)
+    ];
+
+  bracelet.setAttribute("radius",".08");
+
+  bracelet.setAttribute(
+    "position",
+    `${x} ${1.8+Math.random()*1.2} ${z}`
+  );
+
+  bracelet.setAttribute(
+    "material",
+    `
+    color:${color};
+    emissive:${color};
+    emissiveIntensity:8
+    `
+  );
+
+  bracelet.setAttribute(
+    "animation",
+    `
+    property:material.emissiveIntensity;
+    from:1;
+    to:10;
+    dur:${300+Math.random()*900};
+    dir:alternate;
+    loop:true
+    `
+  );
+
+  bracelets.appendChild(bracelet);
+
+}
+
+
+
+/* =========================================================
+   LLUVIA
+========================================================= */
+
+for(let i=0;i<850;i++){
+
+  const drop=document.createElement("a-cylinder");
+
+  const x=-65+Math.random()*130;
+  const z=-55+Math.random()*115;
+
+  drop.setAttribute("radius",".006");
+  drop.setAttribute("height",".55");
+
+  drop.setAttribute(
+    "position",
+    `${x} ${5+Math.random()*35} ${z}`
+  );
+
+  drop.setAttribute(
+    "material",
+    `
+    color:#a8d9ff;
+    transparent:true;
+    opacity:.28
+    `
+  );
+
+  drop.setAttribute(
+    "animation",
+    `
+    property:position;
+    to:${x} 0 ${z};
+    dur:${350+Math.random()*800};
+    loop:true
+    `
+  );
+
+  rain.appendChild(drop);
+
+}
+
+
+
+/* =========================================================
+   SALPICADURAS
+========================================================= */
+
+for(let i=0;i<180;i++){
+
+  const ring=document.createElement("a-ring");
+
+  const x=-60+Math.random()*120;
+  const z=-45+Math.random()*100;
+
+  ring.setAttribute("rotation","-90 0 0");
+  ring.setAttribute("radius-inner",".01");
+  ring.setAttribute("radius-outer",".08");
+
+  ring.setAttribute(
+    "position",
+    `${x}.03 ${z}`
+  );
+
+  ring.setAttribute(
+    "material",
+    `
+    color:#9bdcff;
+    transparent:true;
+    opacity:.28
+    `
+  );
+
+  ring.setAttribute(
+    "animation",
+    `
+    property:scale;
+    from:1 1 1;
+    to:8 8 8;
+    dur:${1200+Math.random()*1200};
+    loop:true
+    `
+  );
+
+  splashes.appendChild(ring);
+
+}
+
+
+
+/* =========================================================
+   HUMO
+========================================================= */
+
+for(let i=0;i<35;i++){
+
+  const cloud=document.createElement("a-sphere");
+
+  cloud.setAttribute(
+    "radius",
+    `${1+Math.random()*2.5}`
+  );
+
+  cloud.setAttribute(
+    "position",
+    `
+    ${-35+Math.random()*70}
+    ${2+Math.random()*8}
+    ${-35+Math.random()*10}
+    `
+  );
+
+  cloud.setAttribute(
+    "material",
+    `
+    color:#888;
+    transparent:true;
+    opacity:.045
+    `
+  );
+
+  cloud.setAttribute(
+    "animation",
+    `
+    property:position;
+    to:
+    ${-35+Math.random()*70}
+    ${10+Math.random()*16}
+    ${-35+Math.random()*10};
+    dur:${3000+Math.random()*4000};
+    loop:true
+    `
+  );
+
+  smoke.appendChild(cloud);
+
+}
+
+
+
+/* =========================================================
+   FUEGO VISUAL
+========================================================= */
+
+[-31,-25,-18,18,25,31].forEach(x=>{
+
+  const flame=document.createElement("a-cone");
+
+  flame.setAttribute("radius-bottom","1");
+  flame.setAttribute("radius-top",".1");
+  flame.setAttribute("height","5");
+
+  flame.setAttribute(
+    "position",
+    `${x} 4 -31`
+  );
+
+  flame.setAttribute(
+    "material",
+    `
+    color:#ff2400;
+    emissive:#ff1600;
+    emissiveIntensity:10
+    `
+  );
+
+  flame.setAttribute(
+    "animation",
+    `
+    property:scale;
+    from:.4 .4 .4;
+    to:1 2.5 1;
+    dur:220ms;
+    dir:alternate;
+    loop:true
+    `
+  );
+
+  fire.appendChild(flame);
+
+
+  const glow=document.createElement("a-light");
+
+  glow.setAttribute("type","point");
+  glow.setAttribute("color","#ff3000");
+  glow.setAttribute("intensity","6");
+  glow.setAttribute("distance","18");
+
+  glow.setAttribute(
+    "position",
+    `${x} 4 -31`
+  );
+
+  fire.appendChild(glow);
+
+});
+
+
+
+/* =========================================================
+   FUEGOS ARTIFICIALES
+========================================================= */
+
+function createFirework(x,y,z,color,delay){
+
+  const burst=document.createElement("a-entity");
+
+  burst.setAttribute(
+    "position",
+    `${x} ${y} ${z}`
+  );
+
+
+  const center=document.createElement("a-sphere");
+
+  center.setAttribute("radius",".45");
+
+  center.setAttribute(
+    "material",
+    `
+    color:${color};
+    emissive:${color};
+    emissiveIntensity:15
+    `
+  );
+
+  burst.appendChild(center);
+
+
+  for(let i=0;i<42;i++){
+
+    const ray=document.createElement("a-cylinder");
+
+    ray.setAttribute("radius",".045");
+    ray.setAttribute("height","7");
+
+    const angle=
+      (i/42)*Math.PI*2;
+
+    const dx=Math.cos(angle)*3.5;
+    const dy=Math.sin(angle)*3.5;
+
+    ray.setAttribute(
+      "position",
+      `${dx} ${dy} 0`
+    );
+
+    ray.setAttribute(
+      "rotation",
+      `0 0 ${angle*180/Math.PI}`
+    );
+
+    ray.setAttribute(
+      "material",
+      `
+      color:${color};
+      emissive:${color};
+      emissiveIntensity:12
+      `
+    );
+
+    ray.setAttribute(
+      "animation",
+      `
+      property:scale;
+      from:0 0 0;
+      to:1 1 1;
+      dur:650ms;
+      delay:${delay};
+      loop:true
+      `
+    );
+
+    burst.appendChild(ray);
+
+  }
+
+
+  const glow=document.createElement("a-light");
+
+  glow.setAttribute("type","point");
+  glow.setAttribute("color",color);
+  glow.setAttribute("intensity","25");
+  glow.setAttribute("distance","45");
+
+  burst.appendChild(glow);
+
+
+  burst.setAttribute(
+    "animation",
+    `
+    property:scale;
+    from:.05 .05 .05;
+    to:1.5 1.5 1.5;
+    dur:1000ms;
+    delay:${delay};
+    dir:alternate;
+    loop:true
+    `
+  );
+
+  fireworks.appendChild(burst);
+
+}
+
+
+
+/* =========================================================
+   CIELO LLENO DE FUEGOS
+========================================================= */
+
+createFirework(-40,45,-20,"#ff003c",0);
+createFirework(-25,58,-28,"#8b00ff",500);
+createFirework(0,68,-35,"#ffffff",900);
+createFirework(27,57,-27,"#00d9ff",1300);
+createFirework(42,48,-18,"#ff0055",1700);
+
+createFirework(-17,75,-15,"#00fff0",2200);
+createFirework(18,72,-20,"#ff003c",2700);
+
+createFirework(0,82,-10,"#ff0088",3300);
+
+
+
+/* =========================================================
+   FLASHES MASIVOS
+========================================================= */
+
+for(let i=0;i<35;i++){
+
+  const flash=document.createElement("a-light");
+
+  flash.setAttribute("type","point");
+
+  flash.setAttribute(
+    "color",
+    colors[i%colors.length]
+  );
+
+  flash.setAttribute("intensity","0");
+  flash.setAttribute("distance","55");
+
+  flash.setAttribute(
+    "position",
+    `
+    ${-45+Math.random()*90}
+    ${5+Math.random()*35}
+    ${-40+Math.random()*65}
+    `
+  );
+
+  flash.setAttribute(
+    "animation",
+    `
+    property:light.intensity;
+    from:0;
+    to:${4+Math.random()*12};
+    dur:${100+Math.random()*500};
+    dir:alternate;
+    loop:true
+    `
+  );
+
+  flashes.appendChild(flash);
+
+}
+
+
+
+/* =========================================================
+   PULSO DE LA PANTALLA PRINCIPAL
+========================================================= */
+
+const mainScreen=
+  document.querySelector("#mainScreen");
+
+mainScreen.setAttribute(
+  "animation",
+  `
+  property:material.emissiveIntensity;
+  from:2;
+  to:6;
+  dur:1200;
+  dir:alternate;
+  loop:true
+  `
+);
+
+
+
+/* =========================================================
+   LATIDO DE LOS ANILLOS
+========================================================= */
+
+setInterval(()=>{
+
+  const rings=
+    document.querySelectorAll("a-torus");
+
+  rings.forEach((ring,index)=>{
+
+    if(index>=3){
+
+      ring.setAttribute(
+        "scale",
+        "1.12 1.12 1.12"
+      );
+
+      setTimeout(()=>{
+
+        ring.setAttribute(
+          "scale",
+          "1 1 1"
+        );
+
+      },180);
+
+    }
+
+  });
+
+},1700);
+
+
+</script>
+
+</a-scene>
+
+</body>
+</html>
